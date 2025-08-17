@@ -1,53 +1,73 @@
-# Alpine Linux 一键安装 Telegram 互动机器人脚本
+## alpine-Telegram-interactive-bot
 
-[![Stargazers](https://img.shields.io/github/stars/iczyaer/alpine-Telegram-interactive-bot)](https://github.com/iczyaer/alpine-Telegram-interactive-bot/stargazers) 
-[![Issues](https://img.shields.io/github/issues/iczyaer/alpine-Telegram-interactive-bot)](https://github.com/iczyaer/alpine-Telegram-interactive-bot/issues)
+适用于 Alpine Linux 的 Telegram-interactive-bot 一键安装脚本
 
-> 基于 Alpine Linux 的 Telegram 互动机器人（Telegram-interactive-bot）一键安装与环境配置脚本，支持交互式参数配置、依赖自动安装及虚拟环境隔离。
+## 项目介绍
 
----
+本仓库提供一个一键安装脚本，用于在 Alpine Linux 系统上快速部署 [Telegram-interactive-bot](https://github.com/MiHaKun/Telegram-interactive-bot/) 项目。
 
-## 项目简介
-
-本项目为 **Telegram-interactive-bot** 提供 Alpine Linux 系统的一键安装解决方案，主要功能包括：
-- 自动安装系统依赖（Python3、SQLite、构建工具等）
-- 创建专用工作目录并克隆项目代码
-- 配置 Python 虚拟环境隔离依赖
-- 交互式生成 `.env` 配置文件（含机器人 Token、管理群组、消息策略等核心参数）
-- 记录详细安装日志，便于问题排查
-
----
-
-## 适用系统
-
-- **Alpine Linux**（脚本已针对 Alpine 包管理工具 `apk` 优化）
-
----
-
-## 功能特性
-
-- **交互式配置**：通过命令行交互输入机器人核心参数（Token、管理群组、消息间隔等），自动生成 `.env` 文件
-- **依赖隔离**：使用 Python 虚拟环境（`venv`）管理项目依赖，避免与系统全局包冲突
-- **日志记录**：全程记录安装过程日志至 `/var/log/telegram-bot-install.log`，便于故障排查
-- **适配优化**：修复 Alpine Linux 下 PEP 668 兼容性问题，解决 `pkg_resources` 模块缺失问题
-- **开箱即用**：安装完成后提供明确的运行指导，支持快速启动与长期部署
-
----
-
-## 安装前准备
-
-1. **系统要求**：确保当前系统为 **Alpine Linux**（可通过 `cat /etc/os-release` 验证）
-2. **权限要求**：需以 **root 用户** 或使用 `sudo` 运行脚本（脚本会检查权限）
-3. **网络要求**：需能访问 GitHub（克隆项目代码）及 Telegram Bot API（后续机器人运行需要）
-4. **基础工具**：Alpine 已预装 `git`、`apk` 等工具，无需额外安装
-
----
+脚本特性：
+- 自动安装系统依赖和项目依赖
+- 配置 Python 虚拟环境（适配 PEP 668）
+- 修复 pkg_resources 相关问题
+- 详细的安装日志记录
+- 清晰的操作提示
 
 ## 安装步骤
 
-### 1. 下载脚本
-# 克隆脚本仓库（或直接下载 install.sh）
-git clone https://github.com/iczyaer/alpine-Telegram-interactive-bot.git
-cd alpine-Telegram-interactive-bot
+1. 登录到 Alpine Linux 系统，确保拥有 root 权限
+2. 执行以下命令：
 
-未完成。。。
+```bash
+wget https://raw.githubusercontent.com/iczyaer/alpine-Telegram-interactive-bot/main/install.sh && chmod +x install.sh && ./install.sh
+```
+
+## 后续配置
+
+安装完成后，请按照以下步骤配置和运行项目：
+
+1. 编辑配置文件：
+   ```bash
+   nano /opt/telegram-interactive-bot/.env
+   ```
+   
+   需要填写的关键信息：
+   - `BOT_TOKEN`: 从 @BotFather 获取
+   - `API_ID` 和 `API_HASH`: 从 [https://my.telegram.org](https://my.telegram.org) 获取
+   - `GROUP_ID`: 管理群组 ID（可通过 @GetTheirIDBot 获取）
+   - `ADMIN_ID`: 管理员用户 ID（可通过 @GetTheirIDBot 获取）
+
+2. 运行项目：
+   ```bash
+   cd /opt/telegram-interactive-bot
+   . venv/bin/activate
+   python -m interactive-bot
+   ```
+
+## 日志查看
+
+安装过程中的日志记录在：
+```bash
+cat /var/log/telegram-bot-install.log
+```
+
+## 长期运行建议
+
+为了确保机器人在后台稳定运行，建议使用进程管理工具：
+
+- PM2
+- supervisor
+
+具体配置方法请参考原项目的 README：
+[https://github.com/MiHaKun/Telegram-interactive-bot/blob/master/README.en.md](https://github.com/MiHaKun/Telegram-interactive-bot/blob/master/README.en.md)
+
+## 问题反馈
+
+如果遇到安装问题，可以：
+1. 检查安装日志
+2. 加入原项目讨论群组：[https://t.me/DeveloperTeamGroup](https://t.me/DeveloperTeamGroup)
+3. 在本仓库提交 Issue
+
+## 许可证
+
+本项目的安装脚本遵循 MIT 许可证，原项目许可证请参考其仓库说明。
