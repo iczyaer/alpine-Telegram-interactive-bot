@@ -33,7 +33,6 @@ wget https://raw.githubusercontent.com/iczyaer/alpine-Telegram-interactive-bot/m
    
    需要填写的关键信息：
    - `BOT_TOKEN`: 从 @BotFather 获取
-   - `API_ID` 和 `API_HASH`: 从 [https://my.telegram.org](https://my.telegram.org) 获取
    - `GROUP_ID`: 管理群组 ID（可通过 @GetTheirIDBot 获取）
    - `ADMIN_ID`: 管理员用户 ID（可通过 @GetTheirIDBot 获取）
 
